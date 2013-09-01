@@ -200,36 +200,21 @@ Translations of the guide are available in the following languages:
 
     `{` and `}` deserve a bit of clarification, since they are used
     for block and hash literals, as well as embedded expressions in
-    strings. For hash literals two styles are considered acceptable.
+    strings. For hash literals whitespace should be used as well.
 
     ```Ruby
     # good - space after { and before }
     { one: 1, two: 2 }
 
-    # good - no space after { and before }
-    {one: 1, two: 2}
     ```
-
-    The first variant is slightly more readable (and arguably more
-    popular in the Ruby community in general). The second variant has
-    the advantage of adding visual difference between block and hash
-    literals. Whichever one you pick - apply it consistently.
-
-    As far as embedded expressions go, there are also two acceptable
-    options:
+    
+    As far as embedded expressions go, use no whitespace in the interpolation operator:
 
     ```Ruby
     # good - no spaces
     "string#{expr}"
 
-    # ok - arguably more readable
-    "string#{ expr }"
     ```
-
-    The first style is extremely more popular and you're generally
-    advised to stick with it. The second, on the other hand, is
-    (arguably) a bit more readable. As with hashes - pick one style
-    and apply it consistently.
 
 * No spaces after `(`, `[` or before `]`, `)`.
 
@@ -263,6 +248,9 @@ Translations of the guide are available in the following languages:
            else 'Jazz'
            end
     ```
+    
+    You should generally avoid using the `case` statement since its behavior in Ruby is 
+    different from other languages. Use `if/then/elsif/end` instead.
 
 * Use empty lines between `def`s and to break up a method into logical
   paragraphs.
@@ -346,7 +334,7 @@ Translations of the guide are available in the following languages:
           body: source.text)
     end
 
-    # good
+    # okish
     def send_mail(source)
       Mailer.deliver(to: 'bob@example.com',
                      from: 'us@example.com',
@@ -377,7 +365,9 @@ Translations of the guide are available in the following languages:
 
 * Use RDoc and its conventions for API documentation.  Don't put an
   empty line between the comment block and the `def`.
-* Limit lines to 80 characters.
+* Limit lines to 80 characters. Ok, we are not in the 70's any more, so this can be a bit relaxed. 
+  Generally, lines around 90 characters can be viewed easily in modern editors. Try to enforce a hard limit 
+  to 100 characters. 
 * Avoid trailing whitespace.
 * Don't use block comments. They cannot be preceded by whitespace and are not
 as easy to spot as regular comments.
@@ -1336,7 +1326,7 @@ at all.
 * Use `FIXME` to note broken code that needs to be fixed.
 * Use `OPTIMIZE` to note slow or inefficient code that may cause
   performance problems.
-* Use `HACK` to note code smells where questionable coding practices
+* Use `XXX` to note code smells where questionable coding practices
   were used and should be refactored away.
 * Use `REVIEW` to note anything that should be looked at to confirm it
   is working as intended. For example: `REVIEW: Are we sure this is how the
@@ -1993,13 +1983,6 @@ this rule only to arrays with two or more elements.
 
     # good
     email_with_name = "#{user.name} <#{user.email}>"
-    ```
-
-* Consider padding string interpolation code with space. It more clearly sets the
-  code apart from the string.
-
-    ```Ruby
-    "#{ user.last_name }, #{ user.first_name }"
     ```
 
 * Prefer single-quoted strings when you don't need string interpolation or
